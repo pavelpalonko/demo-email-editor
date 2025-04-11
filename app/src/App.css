@@ -1,0 +1,7 @@
+.nav-wrapper {
+  display: flex;
+
+  column-gap: 24px;
+
+  padding: 12px;
+}
