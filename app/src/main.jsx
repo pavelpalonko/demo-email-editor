@@ -10,7 +10,7 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/demo-email-editor">
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/test" element={<div>TEST</div>} />
