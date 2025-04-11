@@ -5,9 +5,9 @@ function App() {
   return (
     <div className="test">
       <nav className="nav-wrapper">
-        <Link to="/test">go to test</Link>
-        <Link to="/test">go to test</Link>
-        <Link to="/test">go to test</Link>
+        <Link to="/test">go to test 1 </Link>
+        <Link to="/test">go to test 2</Link>
+        <Link to="/test">go to test 3</Link>
       </nav>
     </div>
   );
