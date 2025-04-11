@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "private": true,
-  "homepage": "https://github.com/pavelpalonko/demo-email-editor",
+  "homepage": "https://pavelpalonko.github.io/demo-email-editor",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
