@@ -1,155 +1,7 @@
 import React, { useRef } from "react";
 import EmailEditor from "react-email-editor";
 
-const template = {
-  body: {
-    id: "gjO-AEnbm9",
-    rows: [
-      {
-        id: "hfCD1JyC4c",
-        cells: [1],
-        columns: [
-          {
-            id: "O4-6o-6YOi",
-            contents: [
-              {
-                id: "K843fLhmUL",
-                type: "text",
-                values: {
-                  containerPadding: "10px",
-                  anchor: "",
-                  fontSize: "14px",
-                  textAlign: "left",
-                  lineHeight: "140%",
-                  linkStyle: {
-                    inherit: true,
-                    linkColor: "#0000ee",
-                    linkHoverColor: "#0000ee",
-                    linkUnderline: true,
-                    linkHoverUnderline: true,
-                  },
-                  displayCondition: null,
-                  _styleGuide: null,
-                  _meta: {
-                    htmlID: "u_content_text_1",
-                    htmlClassNames: "u_content_text",
-                  },
-                  selectable: true,
-                  draggable: true,
-                  duplicatable: true,
-                  deletable: true,
-                  hideable: true,
-                  locked: false,
-                  text: '<p style="line-height: 140%;">This is a new Text block. Change the text.</p>',
-                  _languages: {},
-                },
-              },
-            ],
-            values: {
-              backgroundColor: "",
-              padding: "0px",
-              border: {},
-              borderRadius: "0px",
-              _meta: {
-                htmlID: "u_column_1",
-                htmlClassNames: "u_column",
-              },
-              deletable: true,
-              locked: false,
-            },
-          },
-        ],
-        values: {
-          displayCondition: null,
-          columns: false,
-          _styleGuide: null,
-          backgroundColor: "",
-          columnsBackgroundColor: "",
-          backgroundImage: {
-            url: "",
-            fullWidth: true,
-            repeat: "no-repeat",
-            size: "custom",
-            position: "center",
-            customPosition: ["50%", "50%"],
-          },
-          padding: "0px",
-          anchor: "",
-          hideDesktop: false,
-          _meta: {
-            htmlID: "u_row_1",
-            htmlClassNames: "u_row",
-          },
-          selectable: true,
-          draggable: true,
-          duplicatable: true,
-          deletable: true,
-          hideable: true,
-          locked: false,
-        },
-      },
-    ],
-    headers: [],
-    footers: [],
-    values: {
-      _styleGuide: null,
-      popupPosition: "center",
-      popupWidth: "600px",
-      popupHeight: "auto",
-      borderRadius: "10px",
-      contentAlign: "center",
-      contentVerticalAlign: "center",
-      contentWidth: "500px",
-      fontFamily: {
-        label: "Arial",
-        value: "arial,helvetica,sans-serif",
-      },
-      textColor: "#000000",
-      popupBackgroundColor: "#FFFFFF",
-      popupBackgroundImage: {
-        url: "",
-        fullWidth: true,
-        repeat: "no-repeat",
-        size: "cover",
-        position: "center",
-      },
-      popupOverlay_backgroundColor: "rgba(0, 0, 0, 0.1)",
-      popupCloseButton_position: "top-right",
-      popupCloseButton_backgroundColor: "#DDDDDD",
-      popupCloseButton_iconColor: "#000000",
-      popupCloseButton_borderRadius: "0px",
-      popupCloseButton_margin: "0px",
-      popupCloseButton_action: {
-        name: "close_popup",
-        attrs: {
-          onClick:
-            "document.querySelector('.u-popup-container').style.display = 'none';",
-        },
-      },
-      language: {},
-      backgroundColor: "#F7F8F9",
-      preheaderText: "",
-      linkStyle: {
-        body: true,
-        linkColor: "#0000ee",
-        linkHoverColor: "#0000ee",
-        linkUnderline: true,
-        linkHoverUnderline: true,
-      },
-      backgroundImage: {
-        url: "",
-        fullWidth: true,
-        repeat: "no-repeat",
-        size: "custom",
-        position: "center",
-      },
-      _meta: {
-        htmlID: "u_body",
-        htmlClassNames: "u_body",
-      },
-    },
-  },
-};
+import { UNLAYER_TEMPLATE_JSON } from "./unlayer.const.js";
 
 function Unlayer() {
   const emailEditorRef = useRef(null);
@@ -172,8 +24,17 @@ function Unlayer() {
     });
   };
 
+  const exportPlainText = () => {
+    const unlayer = emailEditorRef.current?.editor;
+
+    unlayer.exportPlainText((data) => {
+      const { text } = data;
+      console.log("export TEXT:", text);
+    });
+  };
+
   const onReady = () => {
-    emailEditorRef.current?.editor?.loadDesign(template);
+    emailEditorRef.current?.editor?.loadDesign(UNLAYER_TEMPLATE_JSON);
     // editor is ready
     // you can load your template here;
     // the design json can be obtained by calling
@@ -183,37 +44,88 @@ function Unlayer() {
   };
 
   return (
-    <div style={{ height: "80vh", width: "1400px", margin: "0 auto" }}>
-      <div style={{ display: "flex" }}>
-        <div style={{ padding: "14px" }}>
-          <button onClick={exportHtml}>Export HTML</button>
+    <>
+      <div style={{ width: "1400px", margin: "0 auto", paddingTop: "40px" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ padding: "14px 14px 14px 0" }}>
+            <button onClick={exportHtml}>Export HTML</button>
+          </div>
+
+          <div style={{ padding: "14px 14px 14px 0" }}>
+            <button onClick={saveDesign}>Export Design</button>
+          </div>
+
+          <div style={{ padding: "14px 14px 14px 0" }}>
+            <button onClick={exportPlainText}>Export Text</button>
+          </div>
+
+          <p>This data can be seen in the browser console.</p>
         </div>
 
-        <div style={{ padding: "14px" }}>
-          <button onClick={saveDesign}>Save Design</button>
-        </div>
+        <EmailEditor
+          ref={emailEditorRef}
+          onReady={onReady}
+          minHeight={800}
+          options={{
+            mergeTags: {
+              first_name: {
+                name: "First Name",
+                value: "{{first_name}}",
+                sample: "John",
+              },
+              last_name: {
+                name: "Last Name",
+                value: "{{last_name}}",
+                sample: "Doe",
+              },
+              tag_url: {
+                name: "Tag url",
+                value: "{{tag_url}}",
+                sample: "/test",
+              },
+            },
+          }}
+        />
       </div>
 
-      <EmailEditor
-        ref={emailEditorRef}
-        onReady={onReady}
-        minHeight={"100%"}
-        options={{
-          mergeTags: {
-            first_name: {
-              name: "First Name",
-              value: "{{first_name}}",
-              sample: "John",
-            },
-            last_name: {
-              name: "Last Name",
-              value: "{{last_name}}",
-              sample: "Doe",
-            },
-          },
-        }}
-      />
-    </div>
+      <div style={{ marginBottom: "200px" }}>
+        <h3>Summary:</h3>
+
+        <ul>
+          <li>Template editing (drag & drop) ✅</li>
+
+          <li>Merge tags support ✅</li>
+
+          <li>Responsive design ✅</li>
+
+          <li>Txt format ✅</li>
+        </ul>
+
+        <ul>
+          <li>
+            Pricing:{" "}
+            <a href="https://unlayer.com/pricing">
+              https://unlayer.com/pricing
+            </a>{" "}
+          </li>
+
+          <li>
+            NPM:{" "}
+            <a href="https://www.npmjs.com/package/react-email-editor">
+              https://www.npmjs.com/package/react-email-editor
+            </a>{" "}
+            (Published 10 months ago)
+          </li>
+
+          <li>
+            GIT:{" "}
+            <a href="https://github.com/unlayer/react-email-editor">
+              https://github.com/unlayer/react-email-editor
+            </a>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 }
 

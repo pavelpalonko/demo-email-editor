@@ -5,12 +5,14 @@ function App() {
   return (
     <div className="test">
       <nav className="nav-wrapper">
-        <Link to="/unlayer">Go to "unlayer" template</Link>
-        <Link to="/test">go to test 2</Link>
-        <Link to="/test">go to test 3</Link>
+        <Link to="/unlayer">Go to "Unlayer" template</Link>
+        <Link to="/grapes">Go to "GrapesJS" template</Link>
+        <Link to="/other">Go to other email builders</Link>
       </nav>
 
-      <Outlet />
+      <div style={{ margin: "0 520px" }}>
+        <Outlet />
+      </div>
     </div>
   );
 }

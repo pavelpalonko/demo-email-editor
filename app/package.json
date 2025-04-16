@@ -13,6 +13,8 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "grapesjs": "^0.22.6",
+    "grapesjs-preset-newsletter": "^1.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-email-editor": "^1.7.11",
