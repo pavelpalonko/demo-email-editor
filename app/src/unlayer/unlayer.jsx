@@ -45,7 +45,7 @@ function Unlayer() {
 
   return (
     <>
-      <div style={{ width: "1400px", margin: "0 auto", paddingTop: "40px" }}>
+      <div style={{ paddingTop: "40px" }}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <div style={{ padding: "14px 14px 14px 0" }}>
             <button onClick={exportHtml}>Export HTML</button>

@@ -35,12 +35,14 @@ const EmailBuilder = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ paddingTop: "40px" }}>
       <div style={{ padding: "14px 14px 14px 0" }}>
-        <button onClick={getHtml}>Export Text</button>
+        <button onClick={getHtml}>Export HTML</button>
       </div>
 
-      <div ref={editorRef} />
+      <div>
+        <div ref={editorRef} />
+      </div>
 
       <div style={{ marginBottom: "200px" }}>
         <h3>Summary:</h3>

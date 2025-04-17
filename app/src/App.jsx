@@ -10,7 +10,15 @@ function App() {
         <Link to="/other">Go to other email builders</Link>
       </nav>
 
-      <div style={{ margin: "0 520px" }}>
+      <div
+        style={{
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "1400px",
+          paddingLeft: "18px",
+          paddingRight: "18px",
+        }}
+      >
         <Outlet />
       </div>
     </div>
